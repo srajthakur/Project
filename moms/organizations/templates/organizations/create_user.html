@@ -1,0 +1,33 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}Create New User{% endblock %}
+
+{% block header %}
+    Create a New User
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h3 class="mb-4">Create New User for {{ request.user.organization.name }}</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="first_name" class="form-label">First Name</label>
+            <input type="text" name="first_name" class="form-control" id="first_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="last_name" class="form-label">Last Name</label>
+            <input type="text" name="last_name" class="form-control" id="last_name" required>
+        </div>
+        <div class="mb-3">
+            <label for="role" class="form-label">Role</label>
+            <select name="role" class="form-select" id="role" required>
+                {% for role in roles %}
+                    <option value="{{ role.id }}">{{ role.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Create User</button>
+    </form>
+</div>
+{% endblock %}

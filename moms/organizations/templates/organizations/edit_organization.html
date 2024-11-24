@@ -1,0 +1,31 @@
+{% extends 'base_generic.html' %}
+
+{% block title %}Edit Organization{% endblock %}
+
+{% block header %}
+<h1 class="mt-4">Edit Organization</h1>
+<p class="text-muted">Modify the details of the organization.</p>
+{% endblock %}
+
+{% block content %}
+<form method="POST" class="mt-4">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="name" class="form-label">Organization Name</label>
+        <input type="text" id="name" name="name" class="form-control" value="{{ organization.name }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="address" class="form-label">Address</label>
+        <textarea id="address" name="address" class="form-control" rows="3">{{ organization.address }}</textarea>
+    </div>
+    <div class="mb-3">
+        <label for="is_main" class="form-label">Is Main Organization</label>
+        <select id="is_main" name="is_main" class="form-select">
+            <option value="True" {% if organization.is_main %}selected{% endif %}>Yes</option>
+            <option value="False" {% if not organization.is_main %}selected{% endif %}>No</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <a href="{% url 'super_admin_dashboard' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
